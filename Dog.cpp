@@ -6,12 +6,13 @@ using namespace std;
 class Dog: public Pet{
     private:
         int size;
+        bool isAlive;
     
         public:
 
             Dog(){
-                //size = getRandomNumber(5,15);
-                size = 5;
+                size = getRandomNumber(5,15);
+                isAlive = true;
             }
 
             double runAway(){
@@ -31,9 +32,17 @@ class Dog: public Pet{
 
             bool gotAway(){
                 double distanceRan = runAway();
-                if (distanceRan >= 10){
+                if (distanceRan >= 4.5){
                     return true;
                 }
                 return false;
+            }
+
+            void died(){
+                isAlive = false;
+            }
+
+            bool dogisAlive(){
+                return isAlive;
             }
 };
