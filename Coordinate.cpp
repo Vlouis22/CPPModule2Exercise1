@@ -36,5 +36,12 @@ class Coordinate{
         int getY(){
             return y;
         }
+
+        double distanceAway(Coordinate c1){
+            int x1 = c1.getX();
+            int y1 = c1.getY();
+            double distance = sqrt((x1-x) * (x1-x) + (y1-y) * (y1-y));
+            return distance;
+        }
 };
 
