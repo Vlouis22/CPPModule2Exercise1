@@ -6,6 +6,7 @@ class Cat: public Pet{
     private:
         int numberOfKills;
         static int count;
+        static int mostKills;
 
         public:
 
@@ -20,6 +21,10 @@ class Cat: public Pet{
 
             int getCount(){
                 return count;
+            }
+
+            int getMostKills(){
+                return mostKills;
             }
             
             double calculateChanceOfWinning(Dog* dog){
@@ -42,6 +47,9 @@ class Cat: public Pet{
                 if (randomNum <= getChanceOfWinning){
                     dog->died();
                     numberOfKills++;
+                    if(numberOfKills > mostKills){
+                        mostKills = numberOfKills;
+                    }
                     return true;
                 }
                 decreaseHealth();
@@ -53,3 +61,4 @@ class Cat: public Pet{
 };
 
 int Cat::count = 0; 
+int Cat::mostKills = 0;

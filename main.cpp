@@ -23,12 +23,13 @@ double getDistance(Cat *cats[], Dog *dogs[], int catIndex, int dogIndex)
     return distance;
 }
 
-void displayResults(int numOfFights, double catVictory, int numberOfEscapes){
-    cout << "Simulation ended [All dogs have become cats]." << endl;
+void displayResults(int numOfFights, double catVictory, int numberOfEscapes, int numberOfDogsTurned){
+    cout << "Simulation ended [All dogs have become cats]" << endl;
     cout << "Simulation results: " << endl;
     cout << "\t⭐ Number of fights occured: " << numOfFights << endl;
-    cout << "\t⭐ Cat winning percentage: " << (int) ((catVictory/numOfFights)*100) << "%" << endl;
-    cout << "\t⭐ Dogs were able to outrun cats " << numberOfEscapes << " times. " << endl;
+    cout << "\t⭐ Cats' overall successful turn rate: : " << (int) ((catVictory/numOfFights)*100) << "%" << endl;
+    cout << "\t⭐ Most dogs turned by a single cat: " << numberOfDogsTurned << endl;
+    cout << "\t⭐ Dogs were able to outrun cats " << numberOfEscapes << " times" << endl;
 }
 
 int main()
@@ -74,7 +75,8 @@ int main()
         moveObjects(dogArray, 50 - (catArray[0]->getCount()));
     }
     // End of simulation
-    displayResults(numOfFights, catVictory, numberOfEscapes);
+    int catWithMostKills = catArray[0]->getMostKills();
+    displayResults(numOfFights, catVictory, numberOfEscapes, catWithMostKills);
 
     return 0;
 }
