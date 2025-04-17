@@ -6,12 +6,13 @@ class Coordinate{
     private:
         int x;
         int y;
+        static const int MAXIMUM_SIZE = 250;
 
     public: 
 
         Coordinate(){
-            x = getRandomNumber(0,250);
-            y = getRandomNumber(0,250);
+            x = getRandomNumber(0,MAXIMUM_SIZE);
+            y = getRandomNumber(0,MAXIMUM_SIZE);
         }
 
         ~Coordinate(){};
@@ -21,13 +22,13 @@ class Coordinate{
             y = newY;
             if(x < 0){
                 x = 0;
-            } else if (x > 250) {
-                x = 250;
+            } else if (x > MAXIMUM_SIZE) {
+                x = MAXIMUM_SIZE;
             } 
             if(y < 0){
                 y = 0;
-            } else if (y > 250) {
-                y = 250;
+            } else if (y > MAXIMUM_SIZE) {
+                y = MAXIMUM_SIZE;
             } 
         }
 
