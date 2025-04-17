@@ -10,22 +10,24 @@ class Coordinate{
     public: 
 
         Coordinate(){
-            x = getRandomNumber(0,100);
-            y = getRandomNumber(0,100);
+            x = getRandomNumber(0,250);
+            y = getRandomNumber(0,250);
         }
+
+        ~Coordinate(){};
 
         void changeCoordinate(int newX, int newY){
             x = newX;
             y = newY;
             if(x < 0){
                 x = 0;
-            } else if (x > 100) {
-                x = 100;
+            } else if (x > 250) {
+                x = 250;
             } 
             if(y < 0){
                 y = 0;
-            } else if (y > 100) {
-                y = 100;
+            } else if (y > 250) {
+                y = 250;
             } 
         }
 
