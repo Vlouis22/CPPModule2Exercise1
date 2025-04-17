@@ -14,6 +14,8 @@ class Pet{
             health = getRandomNumber(90, 100);
         }
 
+        virtual ~Pet() {};
+
         int getHealth(){
             return health;
         }
@@ -23,6 +25,10 @@ class Pet{
             if (health < 20){
                 health = 20;
             }
+        }
+
+        void changeHealth(int newHealth){
+            health = newHealth;
         }
 
         void moveAround(){

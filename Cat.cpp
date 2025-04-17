@@ -15,6 +15,8 @@ class Cat: public Pet{
                 count++;
             }
 
+            ~Cat(){};
+
             int getNumberOfKills(){
                 return numberOfKills;
             };
@@ -57,7 +59,9 @@ class Cat: public Pet{
                 return false;
             }
 
-            
+            void increaseCatHealth(int amount) {
+                changeHealth(min(getHealth() + amount, 100));
+            }
 };
 
 int Cat::count = 0; 

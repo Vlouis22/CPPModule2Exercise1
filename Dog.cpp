@@ -15,6 +15,8 @@ class Dog: public Pet{
                 isAlive = true;
             }
 
+            ~Dog(){};
+
             double runAway(){
                 int prevX = getCoordinate().getX();
                 int prevY = getCoordinate().getY();
