@@ -10,7 +10,12 @@ class Mouse: public Pet{
     
         public:
 
-            Mouse(int x, int y, int maximum_x, int maximum_y): Pet(x,y, maximum_y, maximum_y){
+            Mouse(int x, int y, int maximum_x, int maximum_y): Pet(x,y, maximum_x, maximum_y){
+                power = getRandomNumber(1,10);
+                count++;
+            }
+
+            Mouse(int maximum_x, int maximum_y): Pet(maximum_x, maximum_y){
                 power = getRandomNumber(1,10);
                 count++;
             }
@@ -22,9 +27,7 @@ class Mouse: public Pet{
                 int prevY = getCoordinate().getY();
                 moveAround((getCoordinate().getX() + getRandomNumber(-2, 2)), 
                             (getCoordinate().getY() +getRandomNumber(-2, 2)));
-                int newX = getCoordinate().getX();
-                int newY = getCoordinate().getY();
-            }
+            };
 
             int getPower(){
                 return power;
@@ -32,8 +35,18 @@ class Mouse: public Pet{
 
             int getCount(){
                 return count;
-            }
+            };
 
+            Mouse& operator++() {
+                count++;
+                return *this;
+            };
+    
+            Mouse operator++(int) {
+                Mouse temp = *this;
+                count++;
+                return temp;
+            };
 };
 
 int Mouse::count = 0; 

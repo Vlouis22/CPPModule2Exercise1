@@ -13,6 +13,10 @@ class Pet{
             health = getRandomNumber(90, 100);
         }
 
+        Pet(int maximum_x, int maximum_y) : coordinate(maximum_x, maximum_y) {
+            health = getRandomNumber(90, 100);
+        }
+
         virtual ~Pet() {};
 
         int getHealth(){
