@@ -18,7 +18,7 @@ class Arena {
             numMice = getRandomNumber((width + height)/20, (width+height)/10);
             startingMice = numMice;
             for (int i = 0; i < numMice; i++) {
-                mouseArray[i] = new Mouse(NULL, NULL, gridWidth, gridHeight);
+                mouseArray[i] = new Mouse(gridWidth, gridHeight);
             }
             cout << "Mice count for this simulation: " << numMice << endl;
             cout << "Arena size: " << gridWidth << "x" << gridHeight << endl;
