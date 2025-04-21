@@ -73,10 +73,10 @@ int main() {
     Arena arena = Arena(arena_x, arena_y);
 
     for (int i = 0; i < numDogs; i++)
-        dogArray[i] = new Dog(NULL, NULL, arena_x, arena_y);
+        dogArray[i] = new Dog(arena_x, arena_y);
 
     for (int i = 0; i < numCats; i++)
-        catArray[i] = new Cat(NULL, NULL, arena_x, arena_y);
+        catArray[i] = new Cat(arena_x, arena_y);
     
 
     Mouse** mouseArray = arena.getMouseArray();
