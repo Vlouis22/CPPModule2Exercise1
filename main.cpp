@@ -9,29 +9,29 @@ using namespace std;
 // Enum to represent time of day
 enum TimeOfDay { DAY, NIGHT };
 
-// Move all dogs
+// Move all dogs in the arena
 void moveObjects(Dog *dogs[], int size) {
     for (int i = 0; i < size; i++)
         dogs[i]->moveAround();
 }
 
-// Move all cats
+// Move all cats in the arena
 void moveObjects(Cat *cats[], int size) {
     for (int i = 0; i < size; i++)
         cats[i]->moveAround();
 }
 
-// Get distance between cat and dog
+// returns distance between cat and dog objects
 double getDistance(Cat *cats[], Dog *dogs[], int catIndex, int dogIndex) {
     return dogs[dogIndex]->getCoordinate().distanceAway(cats[catIndex]->getCoordinate());
 }
 
-// Get distance between cat and mouse
+// returns the distance between cat and mouse object
 double getDistance(Cat *cats[], Mouse *mice[], int catIndex, int mouseIndex) {
     return mice[mouseIndex]->getCoordinate().distanceAway(cats[catIndex]->getCoordinate());
 }
 
-// Display results
+// Display results from the simulation
 void displayResults(int numOfFights, double catVictory, int numberOfEscapes, int numberOfDogsTurned, int mousesLeft, int mousesStart, int dogsDiedDuringDay, int dogsDiedDuringNight) {
     cout << "Simulation ended [All dogs have become cats]" << endl;
     cout << "Simulation results: " << endl;
