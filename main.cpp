@@ -5,6 +5,7 @@ using namespace std;
 #include "Dog.cpp"
 #include "Cat.cpp"
 #include "Mouse.cpp"
+#include "Arena.cpp"
 
 // Enum to represent time of day
 enum TimeOfDay { DAY, NIGHT };
@@ -21,12 +22,6 @@ void moveObjects(Cat *cats[], int size) {
         cats[i]->moveAround();
 }
 
-// Move all mice
-void moveObjects(Mouse *mice[], int size) {
-    for (int i = 0; i < size; i++)
-        mice[i]->move();
-}
-
 // Get distance between cat and dog
 double getDistance(Cat *cats[], Dog *dogs[], int catIndex, int dogIndex) {
     return dogs[dogIndex]->getCoordinate().distanceAway(cats[catIndex]->getCoordinate());
@@ -38,14 +33,14 @@ double getDistance(Cat *cats[], Mouse *mice[], int catIndex, int mouseIndex) {
 }
 
 // Display results
-void displayResults(int numOfFights, double catVictory, int numberOfEscapes, int numberOfDogsTurned, int mousesLeft, int totalMice, int dogsDiedDuringDay, int dogsDiedDuringNight) {
+void displayResults(int numOfFights, double catVictory, int numberOfEscapes, int numberOfDogsTurned, int mousesLeft, int mousesStart, int dogsDiedDuringDay, int dogsDiedDuringNight) {
     cout << "Simulation ended [All dogs have become cats]" << endl;
     cout << "Simulation results: " << endl;
     cout << "\t⭐ Number of fights occurred: " << numOfFights << endl;
     cout << "\t⭐ Cats' overall successful turn rate: " << (int)((catVictory / numOfFights) * 100) << "%" << endl;
     cout << "\t⭐ Most dogs turned by a single cat: " << numberOfDogsTurned << endl;
     cout << "\t⭐ Dogs were able to outrun cats " << numberOfEscapes << " times" << endl;
-    cout << "\t⭐ Number of mice left: " << mousesLeft  << "/" << totalMice << endl;
+    cout << "\t⭐ Number of mouses left after simulation: " << mousesLeft << "/" << mousesStart << endl;
     cout << "\t🌞 Dogs turned during the day: " << dogsDiedDuringDay << endl;
     cout << "\t🌙 Dogs turned during the night: " << dogsDiedDuringNight << endl;
 }
@@ -59,15 +54,6 @@ void removeDog(Dog* dogArray[], int& numDogs, int indexToRemove) {
     numDogs--;
 }
 
-// Remove a mouse from array
-void removeMouse(Mouse* mouseArray[], int& numMice, int indexToRemove) {
-    delete mouseArray[indexToRemove];
-    for (int i = indexToRemove; i < numMice - 1; ++i) {
-        mouseArray[i] = mouseArray[i + 1];
-    }
-    numMice--;
-}
-
 int main() {
     int numOfFights = 0;
     double catVictory = 0;
@@ -79,12 +65,8 @@ int main() {
 
     Dog *dogArray[100];
     Cat *catArray[100];
-    Mouse *mouseArray[100];
-
     int numDogs = 47;
     int numCats = 3;
-    int numMice = getRandomNumber(20, 50);
-    int totalMice = numMice;
 
     for (int i = 0; i < numDogs; i++)
         dogArray[i] = new Dog();
@@ -92,8 +74,8 @@ int main() {
     for (int i = 0; i < numCats; i++)
         catArray[i] = new Cat();
 
-    for (int i = 0; i < numMice; i++)
-        mouseArray[i] = new Mouse();
+    Arena arena = Arena(500, 500);
+    Mouse** mouseArray = arena.getMouseArray();
 
     TimeOfDay currentTime = DAY;
     int turnCounter = 0;
@@ -137,14 +119,16 @@ int main() {
                 }
             }
 
-            for (int m = 0; m < numMice; m++) {
-                if (getDistance(catArray, mouseArray, j, m) < 1) {
-                    if (getRandomNumber(1, 100) <= 10) {
-                        int currentHealth = catArray[j]->getHealth();
-                        int boost = currentHealth * 0.10;
-                        catArray[j]->increaseCatHealth(boost);
-                        removeMouse(mouseArray, numMice, m);
-                        break;
+            if (currentTime == NIGHT) {
+                for (int m = 0; m < arena.getMiceRemaining(); m++) {
+                    if (getDistance(catArray, mouseArray, j, m) < 1) {
+                        if (getRandomNumber(1, 100) <= 10) {
+                            int currentHealth = catArray[j]->getHealth();
+                            int boost = currentHealth * 0.10;
+                            catArray[j]->increaseCatHealth(boost);
+                            arena.removeMouse(m);
+                            break;
+                        }
                     }
                 }
             }
@@ -152,14 +136,13 @@ int main() {
 
         moveObjects(catArray, numCats);
         moveObjects(dogArray, numDogs);
-        moveObjects(mouseArray, numMice);
+        arena.moveMice();
     }
 
-    displayResults(numOfFights, catVictory, numberOfEscapes, maxKillsBySingleCat, numMice, totalMice, dogsDiedDuringDay, dogsDiedDuringNight);
+    displayResults(numOfFights, catVictory, numberOfEscapes, maxKillsBySingleCat, arena.getMiceRemaining(), arena.getMiceStart(), dogsDiedDuringDay, dogsDiedDuringNight);
 
     for (int i = 0; i < numDogs; i++) delete dogArray[i];
     for (int i = 0; i < numCats; i++) delete catArray[i];
-    for (int i = 0; i < numMice; i++) delete mouseArray[i];
 
     return 0;
 }
