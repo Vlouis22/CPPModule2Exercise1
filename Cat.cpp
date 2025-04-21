@@ -15,6 +15,12 @@ class Cat: public Pet{
                 count++;
             }
 
+
+            Cat(int maximum_x, int maximum_y): Pet(maximum_x, maximum_y){
+                numberOfKills = 0;
+                count++;
+            }
+
             ~Cat(){};
 
             int getNumberOfKills(){
