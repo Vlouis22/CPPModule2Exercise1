@@ -7,7 +7,6 @@ class Coordinate
 private:
     int x;
     int y;
-    // static const int MAXIMUM_SIZE = 250;
     int maximum_x;
     int maximum_y;
 
@@ -17,14 +16,19 @@ private:
     {
         maximum_x = new_maximum_x;
         maximum_y = new_maximum_y;
-        if(!(new_x && new_y)){
-            x = getRandomNumber(0, maximum_x);
-            y = getRandomNumber(0, maximum_y);
-        } else {
-            x = new_x;
-            y = new_y;
-        }
+        x = new_x;
+        y = new_y;
     }
+
+    Coordinate(int new_maximum_x, int new_maximum_y)
+    {
+        maximum_x = new_maximum_x;
+        maximum_y = new_maximum_y;
+        x = getRandomNumber(0, maximum_x);
+        y = getRandomNumber(0, maximum_y);
+        
+    }
+
 
     ~Coordinate() {};
 
