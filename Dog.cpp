@@ -10,7 +10,7 @@ class Dog: public Pet{
     
         public:
 
-            Dog(){
+            Dog(int x, int y, int maximum_x, int maximum_y): Pet(x, y, maximum_x, maximum_y){
                 size = getRandomNumber(5,15);
                 isAlive = true;
             }

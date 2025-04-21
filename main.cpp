@@ -4,7 +4,6 @@
 using namespace std;
 #include "Dog.cpp"
 #include "Cat.cpp"
-#include "Mouse.cpp"
 #include "Arena.cpp"
 
 // Enum to represent time of day
@@ -68,13 +67,18 @@ int main() {
     int numDogs = 47;
     int numCats = 3;
 
+    int arena_x = 500;
+    int arena_y = 500;
+
+    Arena arena = Arena(arena_x, arena_y);
+
     for (int i = 0; i < numDogs; i++)
-        dogArray[i] = new Dog();
+        dogArray[i] = new Dog(NULL, NULL, arena_x, arena_y);
 
     for (int i = 0; i < numCats; i++)
-        catArray[i] = new Cat();
+        catArray[i] = new Cat(NULL, NULL, arena_x, arena_y);
+    
 
-    Arena arena = Arena(500, 500);
     Mouse** mouseArray = arena.getMouseArray();
 
     TimeOfDay currentTime = DAY;
@@ -97,10 +101,8 @@ int main() {
                         numberOfEscapes++;
                     } else {
                         numOfFights++;
-                        double baseChance = 0.3;
-                        double effectiveChance = (currentTime == NIGHT) ? min(baseChance * 2, 1.0) : baseChance;
-                        if ((rand() / (double)RAND_MAX) < effectiveChance) {
-                            catArray[numCats] = new Cat();
+                            if (catArray[j]->beatDog(dogArray[k], currentTime == NIGHT ? 1 : 0)) {
+                            catArray[numCats] = new Cat(dogArray[k]->getCoordinate().getX(), dogArray[k]->getCoordinate().getY(), arena_x, arena_y);
                             numCats++;
                             catVictory++;
                             catArray[j]->turnDog(dogArray[k]);

@@ -10,7 +10,7 @@ class Cat: public Pet{
 
         public:
 
-            Cat(){
+            Cat(int x, int y, int maximum_x, int maximum_y): Pet(x, y, maximum_x, maximum_y){
                 numberOfKills = 0;
                 count++;
             }
@@ -29,8 +29,11 @@ class Cat: public Pet{
                 return mostKills;
             }
             
-            double calculateChanceOfWinning(Dog* dog){
+            double calculateChanceOfWinning(Dog* dog, int time){
                 double catPower = getHealth() * (100 + (numberOfKills * 10))/100;
+                if(time == 1){
+                    catPower *= 2;
+                }
                 double dogPower = dog->getHealth() + dog->getSize() * 4;
 
                 int diff = catPower - dogPower;
@@ -43,19 +46,23 @@ class Cat: public Pet{
                 return changeOfWinning;
             }
 
-            bool turnDog(Dog* dog){
-                double getChanceOfWinning = calculateChanceOfWinning(dog);
-                double randomNum = getRandomNumber(1,100);
-                if (randomNum <= getChanceOfWinning){
-                    dog->died();
-                    numberOfKills++;
-                    if(numberOfKills > mostKills){
-                        mostKills = numberOfKills;
-                    }
-                    return true;
+            void turnDog(Dog* dog){
+                dog->died();
+                numberOfKills++;
+                if(numberOfKills > mostKills){
+                    mostKills = numberOfKills;
                 }
+            }
+
+            bool beatDog(Dog* dog, int time = 0){
                 decreaseHealth();
                 dog->decreaseHealth();
+                double getChanceOfWinning = calculateChanceOfWinning(dog, time);
+
+                double randomNum = getRandomNumber(1,100);
+                if (randomNum <= getChanceOfWinning){
+                    return true;
+                }
                 return false;
             }
 

@@ -10,7 +10,7 @@ class Mouse: public Pet{
     
         public:
 
-            Mouse(){
+            Mouse(int x, int y, int maximum_x, int maximum_y): Pet(x,y, maximum_y, maximum_y){
                 power = getRandomNumber(1,10);
                 count++;
             }

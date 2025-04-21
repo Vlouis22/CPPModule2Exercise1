@@ -9,8 +9,7 @@ class Pet{
     
     public:
 
-        Pet(){
-            coordinate = Coordinate();
+        Pet(int x, int y, int maximum_x, int maximum_y) : coordinate(x, y, maximum_x, maximum_y) {
             health = getRandomNumber(90, 100);
         }
 
