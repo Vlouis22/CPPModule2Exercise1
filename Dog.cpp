@@ -15,6 +15,11 @@ class Dog: public Pet{
                 isAlive = true;
             }
 
+            Dog(int maximum_x, int maximum_y): Pet(maximum_x, maximum_y){
+                size = getRandomNumber(5,15);
+                isAlive = true;
+            }
+
             ~Dog(){};
 
             double runAway(){
